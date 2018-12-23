@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EditAppointmentController">
+   <children>
+      <AnchorPane id="AnchorPane" layoutY="23.0" prefHeight="400.0" prefWidth="466.0">
+         <children>
+            <Text layoutX="25.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit an appointment">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <ButtonBar layoutX="210.0" layoutY="337.0" prefHeight="40.0" prefWidth="200.0">
+               <buttons>
+                  <Button fx:id="handleEdit" mnemonicParsing="false" onAction="#handleEdit" text="Edit" />
+                  <Button fx:id="handleCancel" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
+               </buttons>
+            </ButtonBar>
+            <HBox layoutX="86.0" layoutY="70.0" prefHeight="40.0" prefWidth="324.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="120.0" text="Appointment Date" />
+                  <DatePicker fx:id="appointmentDate" prefHeight="27.0" prefWidth="207.0" />
+               </children>
+            </HBox>
+            <HBox layoutX="86.0" layoutY="285.0" prefHeight="40.0" prefWidth="324.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="120.0" text="Appointment Type" />
+                  <ComboBox fx:id="appointmentType" prefHeight="25.0" prefWidth="203.0" />
+               </children>
+            </HBox>
+            <HBox layoutX="86.0" layoutY="229.0" prefHeight="40.0" prefWidth="324.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="120.0" text="Appointment With" />
+                  <ComboBox fx:id="appointmentWith" prefHeight="25.0" prefWidth="204.0" />
+               </children>
+            </HBox>
+            <HBox layoutX="86.0" layoutY="171.0" prefHeight="40.0" prefWidth="324.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="120.0" text="Appointment Location" />
+                  <ComboBox fx:id="appointmentLocation" prefHeight="25.0" prefWidth="205.0" />
+               </children>
+            </HBox>
+            <HBox layoutX="25.0" layoutY="120.0" prefHeight="40.0" prefWidth="190.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="120.0" text="Appointment Hour" />
+                  <ComboBox fx:id="appointmentHour" prefHeight="25.0" prefWidth="70.0" />
+               </children>
+            </HBox>
+            <HBox layoutX="233.0" layoutY="123.0" prefHeight="40.0" prefWidth="190.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="125.0" text="Appointment Minutes" />
+                  <ComboBox fx:id="appointmentMinutes" prefHeight="25.0" prefWidth="75.0" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

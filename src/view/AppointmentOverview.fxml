@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="527.0" prefWidth="1044.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AppointmentOverviewController">
+   <children>
+      <SplitPane dividerPositions="0.7296137339055794" prefHeight="527.0" prefWidth="1044.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="525.0" prefWidth="711.0">
+               <children>
+                  <TabPane prefHeight="425.0" prefWidth="751.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                      <Tab fx:id="monthView" text="This Month">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="271.0" prefWidth="341.0">
+                                 <children>
+                                    <TableView fx:id="monthTable" layoutX="43.0" layoutY="24.0" prefHeight="358.0" prefWidth="707.0">
+                                      <columns>
+                                        <TableColumn fx:id="monthDate" prefWidth="134.0" text="Start" />
+                                        <TableColumn fx:id="monthStart" prefWidth="136.0" text="End" />
+                                          <TableColumn fx:id="monthLocation" minWidth="0.0" prefWidth="113.0" text="Location" />
+                                          <TableColumn fx:id="monthType" prefWidth="126.0" text="Type" />
+                                          <TableColumn fx:id="monthWith" prefWidth="124.0" text="Appointment With " />
+                                          <TableColumn fx:id="appointmentID" prefWidth="75.0" text="ID" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                      <Tab fx:id="weekView" text="This Week">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="409.0" prefWidth="560.0">
+                                 <children>
+                                    <TableView fx:id="weekTable" layoutX="43.0" layoutY="24.0" prefHeight="358.0" prefWidth="697.0">
+                                       <columns>
+                                          <TableColumn fx:id="weekDate" prefWidth="143.0" text="Start" />
+                                          <TableColumn fx:id="weekStart" minWidth="0.0" prefWidth="127.0" text="End" />
+                                          <TableColumn fx:id="weekLocation" minWidth="0.0" prefWidth="125.0" text="Location" />
+                                          <TableColumn fx:id="weekType" minWidth="0.0" prefWidth="91.0" text="Type" />
+                                          <TableColumn fx:id="weekWith" prefWidth="138.0" text="Appointment With " />
+                                          <TableColumn fx:id="weekID" prefWidth="75.0" text="ID" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                    </tabs>
+                  </TabPane>
+                  <ButtonBar layoutX="95.0" layoutY="449.0" prefHeight="40.0" prefWidth="444.0">
+                    <buttons>
+                      <Button mnemonicParsing="false" onAction="#handleAppointmentAdd" text="Add Appointment" />
+                        <Button mnemonicParsing="false" onAction="#handleAppointmentEdit" text="Edit Appointment" />
+                        <Button mnemonicParsing="false" onAction="#handleAppointmentDelete" text="Delete" />
+                    </buttons>
+                  </ButtonBar>
+               </children>
+            </AnchorPane>
+            <TableView fx:id="customerTable" onMouseClicked="#handleCustomerSelect" prefHeight="525.0" prefWidth="326.0">
+               <columns>
+                  <TableColumn fx:id="customerID" minWidth="0.0" prefWidth="110.0" text="Cust ID" />
+                  <TableColumn fx:id="customerName" minWidth="1.0" prefWidth="138.0" text="Name" />
+               </columns>
+            </TableView>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
