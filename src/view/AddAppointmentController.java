@@ -11,6 +11,9 @@ import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import static java.util.Optional.empty;
 import static java.util.OptionalDouble.empty;
 import static java.util.OptionalInt.empty;
@@ -95,14 +98,41 @@ public class AddAppointmentController implements Initializable {
         String reason = appointmentReason.getValue();
         String location = appointmentLocation.getValue();
         int customerId = id;
+        DateTimeFormatter df = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         LocalDateTime ldt = LocalDateTime.of(date.getYear(), date.getMonthValue(),
                 date.getDayOfMonth(), Integer.parseInt(hour), Integer.parseInt(minute));
         LocalDateTime end = ldt.plusHours(1);
         String startTime = ldt.toString();
         String endTime = end.toString();
+        System.out.println(startTime);
+        //End time to TS
+        LocalDateTime ldtEnd = LocalDateTime.parse(endTime, df);
+        ZoneId zidEnd = ZoneId.systemDefault();
+        ZonedDateTime zdtEnd = ldtEnd.atZone(zidEnd);
+        System.out.println("Local Time: " + zdtEnd);
+        ZonedDateTime utcEnd = zdtEnd.withZoneSameInstant(ZoneId.of("UTC"));
+        System.out.println("Zoned time: " + utcEnd);
+        ldtEnd = utcEnd.toLocalDateTime();
+        System.out.println("Zoned time with zone stripped:" + ldtEnd);
+    //Create Timestamp values from Instants to update database
+        Timestamp endsqlts = Timestamp.valueOf(ldtEnd);
+        String sqlEndTime = endsqlts.toString();
+        
+        //start time to TS
+        LocalDateTime ldtStart = LocalDateTime.parse(startTime, df);
+        ZoneId zid = ZoneId.systemDefault();
+        ZonedDateTime zdtStart = ldtStart.atZone(zid);
+        System.out.println("Local Time: " + zdtStart);
+        ZonedDateTime utcStart = zdtStart.withZoneSameInstant(ZoneId.of("UTC"));
+        System.out.println("Zoned time: " + utcStart);
+        ldtStart = utcStart.toLocalDateTime();
+        System.out.println("Zoned time with zone stripped:" + ldtStart);
+    //Create Timestamp values from Instants to update database
+        Timestamp startsqlts = Timestamp.valueOf(ldtStart);
+        String sqlStartTime = startsqlts.toString();
         Parent menu = FXMLLoader.load(getClass().getResource("/view/AppointmentOverview.fxml"));
         Scene menuMain = new Scene(menu);
-        if (AppointmentMGR.appointmentsOverlap(-1, location, startTime )) {
+        if (AppointmentMGR.appointmentsOverlap(-1, location, sqlStartTime)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("OverlappingAppointments");
             alert.setHeaderText("This Appointment time is already taken.");
@@ -129,7 +159,7 @@ public class AddAppointmentController implements Initializable {
             public void accept(ButtonType response) {
                 if (response == ButtonType.OK) {
             //do the thing
-            AppointmentMGR.addAppointment(customerId, reason, with, location, startTime, endTime);
+            AppointmentMGR.addAppointment(customerId, reason, with, location, sqlStartTime, sqlEndTime);
            
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(menuMain);

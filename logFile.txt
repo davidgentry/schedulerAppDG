@@ -1,8 +1,6 @@
-Dec 23, 2018 2:39:59 PM javafx.fxml.FXMLLoader$ValueElement processValue
+Dec 23, 2018 11:19:37 PM javafx.fxml.FXMLLoader$ValueElement processValue
 WARNING: Loading FXML document with JavaFX API of version 9.0.1 by JavaFX runtime of version 8.0.121
-Dec 23, 2018 2:40:03 PM view.LoginController handleLogin
+Dec 23, 2018 11:19:45 PM view.LoginController handleLogin
 INFO: test logged in
-Dec 23, 2018 2:40:03 PM javafx.fxml.FXMLLoader$ValueElement processValue
-WARNING: Loading FXML document with JavaFX API of version 9.0.1 by JavaFX runtime of version 8.0.121
-Dec 23, 2018 2:40:05 PM javafx.fxml.FXMLLoader$ValueElement processValue
+Dec 23, 2018 11:19:45 PM javafx.fxml.FXMLLoader$ValueElement processValue
 WARNING: Loading FXML document with JavaFX API of version 9.0.1 by JavaFX runtime of version 8.0.121

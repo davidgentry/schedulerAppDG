@@ -21,7 +21,7 @@ public class CustomerMGR {
 
    private static ObservableList<Customer> customers = FXCollections.observableArrayList();
 
-    public static ObservableList<Customer> getCustomers() {
+     public static ObservableList<Customer> getCustomers() {
         //return customers in the DB
         customers.clear();
         try {
@@ -125,6 +125,23 @@ public class CustomerMGR {
             System.out.println("SQLException: " + error.getMessage());
         }
         return false;
+    }
+    
+    public static Customer getCustomer(int id) {
+        try {
+            Statement stmt = DBConnection.getConnection().createStatement();
+            String query = "SELECT * FROM customer WHERE customerId='" + id + "'";
+            ResultSet rs = stmt.executeQuery(query);
+            while(rs.next()) {
+                Customer customer = new Customer();
+                customer.setCustomerName(rs.getString("customerName"));
+                stmt.close();
+                return customer;
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+        }
+        return null;
     }
 }
    

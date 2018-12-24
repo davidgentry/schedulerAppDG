@@ -9,6 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import utilities.DBConnection;
@@ -46,6 +49,33 @@ public class AppointmentMGR {
             System.out.println("SQLException: " + error.getMessage());
             return null;
         }
+    }
+    
+    public static Appointment appointmentIn15() {
+        Appointment appointment;
+        LocalDateTime current = LocalDateTime.now();
+        ZoneId zid = ZoneId.systemDefault();
+        ZonedDateTime zdt = current.atZone(zid);
+        LocalDateTime currentUTC = zdt.withZoneSameInstant(ZoneId.of("UTC")).toLocalDateTime();
+        LocalDateTime currentUTCPlus15 = currentUTC.plusMinutes(15);
+        String user = UserMGR.getCurrentUser().toString();
+        System.out.println(currentUTC);
+        System.out.println(currentUTCPlus15);
+        System.out.println(user);
+        try {
+            Statement statement = DBConnection.getConnection().createStatement();
+            String query = "SELECT * FROM appointment WHERE start BETWEEN '" + currentUTC + "' AND '" + currentUTCPlus15 + "'";
+            ResultSet rs = statement.executeQuery(query);
+            while(rs.next()) {
+                appointment = new Appointment(rs.getInt("appointmentId"), rs.getInt("customerId"), rs.getString("start"),
+                    rs.getString("end"), rs.getString("title"), rs.getString("description"),
+                    rs.getString("location"), rs.getString("contact"));
+                return appointment;
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+        }
+        return null;
     }
     
     public static ObservableList<Appointment> getAppointmentsByMonth (int id) {
@@ -102,10 +132,10 @@ public class AppointmentMGR {
             if(results.next()) {
                 if(results.getString("start").equals(startTime)) {
                     stmt.close();
-                    return false;
+                    return true;
                 }
                 stmt.close();
-                return true;
+                return false;
             } else {
                 stmt.close();
                 return false;

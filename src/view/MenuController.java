@@ -18,6 +18,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import model.Appointment;
+import model.AppointmentMGR;
+import model.Customer;
+import model.CustomerMGR;
 
 /**
  * FXML Controller class
@@ -73,14 +77,22 @@ public class MenuController implements Initializable {
         
     }
     
-    public void handleLogFile(ActionEvent event) throws IOException {
-        
-    }
-    
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        //15-minute alert init here
+        Appointment appointment = AppointmentMGR.appointmentIn15();
+        if(appointment != null) {
+            Customer customer = CustomerMGR.getCustomer(appointment.getCustomerID());
+            String text = String.format("You have an appointment with %s at %s",
+                appointment.getAppointmentDescription(), 
+                customer.getCustomerName(),
+                appointment.getAppointmentStart());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Reminder");
+            alert.setHeaderText("Appointment In 15 Minutes!");
+            alert.setContentText(text);
+            alert.showAndWait();
+        }
     }    
     
 }
