@@ -171,16 +171,16 @@ public class AppointmentOverviewController implements Initializable {
         alert.setTitle("Delete");
         alert.setHeaderText("Delete Appointment?");
         alert.setContentText("This will permanently delete the selected appointment. Click ok to proceed.  This cannot be undone!");
-        alert.showAndWait().ifPresent((response -> {
-            if(response == ButtonType.OK) {
+        alert.showAndWait().ifPresent((response -> { //using partial lambda here to make response function more efficient. Also used in other places
+            if(response == ButtonType.OK) 
                 AppointmentMGR.deleteAppointment(selectedAppointment.getAppointmentID());
-                if(isMonthView) {
-                   monthTable.setItems(AppointmentMGR.getAppointmentsByMonth(customer.getCustomerID())); 
-                } else {
-                    weekTable.setItems(AppointmentMGR.getAppointmentsByWeek(customer.getCustomerID()));
-                }
+                    if(isMonthView) {
+                       monthTable.setItems(AppointmentMGR.getAppointmentsByMonth(customer.getCustomerID())); 
+                    } else {
+                        weekTable.setItems(AppointmentMGR.getAppointmentsByWeek(customer.getCustomerID()));
+                    }
             }
-        }));
+        ));
         
     }
     
@@ -192,6 +192,10 @@ public class AppointmentOverviewController implements Initializable {
         customerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         customerName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         customerTable.setItems(CustomerMGR.getCustomers());
+        /****
+         * 
+         * Use of Lamdas in section below for improved performance because they are type safe and compiler can compile-time check the method
+         */
         monthLocation.setCellValueFactory(cellData -> {
             return cellData.getValue().getAppointmentLocationProp();
         });
